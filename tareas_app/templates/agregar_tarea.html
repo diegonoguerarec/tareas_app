@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Tareas</title>
+</head>
+<body>
+    <h2>Agregar Tarea</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label>Nombre</label> <br>
+        <input type="text" name="nombre" placeholder="Nombre"> <br>
+        <label>Descripcion</label> <br>
+        <input type="text" name="desc" placeholder="Descripcion"> <br>
+        <label>Completada</label>
+        <input type="checkbox" name="completada"> <br>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
