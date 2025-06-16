@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Tareas</title>
+</head>
+<body>
+    {% for tarea in tareas %}
+    <h3>{{ tarea.nombre }}</h3>
+    <P>{{ tarea.desc }}</P>
+    <p>Completada: 
+        {% if tarea.completada == True %}
+            Si
+        {% else %}
+            No
+        {% endif %}
+    </p>
+    <p>Modificada {{ tarea.modificada }}</p> 
+    <hr>
+    {% endfor %}
+</body>
+</html>
