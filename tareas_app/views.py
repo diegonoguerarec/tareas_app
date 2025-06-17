@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Tarea
+from django.utils import timezone
 
 # Create your views here.
 
@@ -24,10 +25,35 @@ def agregar_tarea(request):
         Tarea.objects.create(
             nombre = nombre,
             desc = desc,
-            completada = completada
+            completada = completada,
+            modificada = timezone.now()
         )
 
         return redirect('agregar_tarea')
 
     # Sino, solo carga la pagina
     return render(request, 'agregar_tarea.html')
+
+def editar_tarea(request, id):
+    # Obtener la tarea con id a editar
+    tarea = Tarea.objects.get(id=id)
+
+    # Si se presiona el boton de actualizar desde agregar_tarea.html
+    if request.method == 'POST':
+        tarea.nombre = request.POST.get('nombre')
+        tarea.desc = request.POST.get('desc')
+        
+        if request.POST.get('completada') == 'on':
+            tarea.completada = True
+        else:
+            tarea.completada = False
+
+        tarea.modificada = timezone.now()
+
+        tarea.save()
+
+        return redirect('listar_tareas')
+
+    # Enviar la tarea el formulario (el mismo formulario de agregar tarea)
+    return render(request, 'agregar_tarea.html', {'tarea': tarea})
+

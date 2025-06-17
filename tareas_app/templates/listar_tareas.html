@@ -7,6 +7,7 @@
 </head>
 <body>
     {% for tarea in tareas %}
+
     <h3>{{ tarea.nombre }}</h3>
     <P>{{ tarea.desc }}</P>
     <p>Completada: 
@@ -17,7 +18,11 @@
         {% endif %}
     </p>
     <p>Modificada {{ tarea.modificada }}</p> 
+
+    <a href="{% url "editar_tarea" tarea.id %}">Modificar</a>
+
     <hr>
+
     {% endfor %}
 </body>
 </html>
