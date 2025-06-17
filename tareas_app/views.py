@@ -57,3 +57,10 @@ def editar_tarea(request, id):
     # Enviar la tarea el formulario (el mismo formulario de agregar tarea)
     return render(request, 'agregar_tarea.html', {'tarea': tarea})
 
+def eliminar_tarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+
+    tarea.delete()
+
+    return redirect('listar_tareas')
+
