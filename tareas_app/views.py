@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tarea
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -36,7 +37,7 @@ def agregar_tarea(request):
 
 def editar_tarea(request, id):
     # Obtener la tarea con id a editar
-    tarea = Tarea.objects.get(id=id)
+    tarea = get_object_or_404(Tarea, id=id)
 
     # Si se presiona el boton de actualizar desde agregar_tarea.html
     if request.method == 'POST':
@@ -57,8 +58,9 @@ def editar_tarea(request, id):
     # Enviar la tarea el formulario (el mismo formulario de agregar tarea)
     return render(request, 'agregar_tarea.html', {'tarea': tarea})
 
+@require_POST
 def eliminar_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
+    tarea = get_object_or_404(Tarea, id=id)
 
     tarea.delete()
 
