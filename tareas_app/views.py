@@ -5,6 +5,9 @@ from django.views.decorators.http import require_POST
 
 # Create your views here.
 
+def inicio(request):
+    return render(request, 'index.html')
+
 def listar_tareas(request):
     # Obtener las tareas para pasarle despues al render
     tareas = Tarea.objects.all()
