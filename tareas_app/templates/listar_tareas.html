@@ -8,21 +8,25 @@
 <body>
     {% for tarea in tareas %}
 
-    <h3>{{ tarea.nombre }}</h3>
-    <P>{{ tarea.desc }}</P>
-    <p>Completada: 
-        {% if tarea.completada == True %}
-            Si
-        {% else %}
-            No
-        {% endif %}
-    </p>
-    <p>Modificada {{ tarea.modificada }}</p> 
+        <h3>{{ tarea.nombre }}</h3>
+        <P>{{ tarea.desc }}</P>
+        <p>Completada: 
+            {% if tarea.completada == True %}
+                Si
+            {% else %}
+                No
+            {% endif %}
+        </p>
+        <p>Modificada {{ tarea.modificada }}</p> 
 
-    <a href="{% url "editar_tarea" tarea.id %}">Modificar</a>
-    <a href="{% url "eliminar_tarea" tarea.id %}">Eliminar</a>
+        <a href="{% url "editar_tarea" tarea.id %}">Modificar</a>
 
-    <hr>
+        <form action="{% url "eliminar_tarea" tarea.id %}" method=POST>
+            {% csrf_token %}
+            <input type="submit" value="Eliminar">
+        </form>
+
+        <hr>
 
     {% endfor %}
 </body>
