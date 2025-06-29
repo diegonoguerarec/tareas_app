@@ -8,6 +8,19 @@
 </head>
 <body class="bg-light py-5">
 
+    <!-- Barra superior con usuario y logout -->
+    <nav class="navbar navbar-light bg-white border-bottom mb-4">
+        <div class="container d-flex justify-content-between">
+            <span class="navbar-text">
+                Sesión iniciada como: <strong>{{ user.username }}</strong>
+            </span>
+            <form action="{% url 'logout' %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger btn-sm">Cerrar sesión</button>
+            </form>
+        </div>
+    </nav>
+
     <div class="container">
         <h1 class="text-center mb-5">
             {% if tarea %}
