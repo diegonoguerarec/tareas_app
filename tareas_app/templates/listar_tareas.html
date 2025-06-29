@@ -8,6 +8,22 @@
 </head>
 <body class="bg-light py-5">
 
+    <!-- Barra superior minimalista -->
+    <header class="bg-white border-bottom w-100" style="position: fixed; top: 0; left: 0; z-index: 1030;">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <span class="text-muted">
+                Sesión iniciada como: <strong>{{ user.username }}</strong>
+            </span>
+            <form action="{% url 'logout' %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-sm">Cerrar sesión</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Espacio para compensar la barra fija -->
+    <div style="height: 60px;"></div>
+
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-5">
             <h1 class="mb-0">Tus Tareas</h1>
