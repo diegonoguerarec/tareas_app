@@ -10,13 +10,15 @@ from django.contrib.auth.decorators import login_required
 def inicio(request):
     return render(request, 'index.html')
 
+@login_required
 def listar_tareas(request):
     # Obtener las tareas para pasarle despues al render
-    tareas = Tarea.objects.all()
+    tareas = Tarea.objects.filter(usuario=request.user)
 
     # Pasar como parametro para que pueda mostrar todo
     return render(request, 'listar_tareas.html', {'tareas': tareas})
 
+@login_required
 def agregar_tarea(request):
     # Si se presiona enviar en el formulario, hace esto
     if request.method == 'POST':
@@ -32,7 +34,8 @@ def agregar_tarea(request):
             nombre = nombre,
             desc = desc,
             completada = completada,
-            modificada = timezone.now()
+            modificada = timezone.now(),
+            usuario = request.user
         )
 
         return redirect('agregar_tarea')
@@ -40,6 +43,7 @@ def agregar_tarea(request):
     # Sino, solo carga la pagina
     return render(request, 'agregar_tarea.html')
 
+@login_required
 def editar_tarea(request, id):
     # Obtener la tarea con id a editar
     tarea = get_object_or_404(Tarea, id=id)
@@ -63,6 +67,7 @@ def editar_tarea(request, id):
     # Enviar la tarea el formulario (el mismo formulario de agregar tarea)
     return render(request, 'agregar_tarea.html', {'tarea': tarea})
 
+@login_required
 @require_POST
 def eliminar_tarea(request, id):
     tarea = get_object_or_404(Tarea, id=id)
